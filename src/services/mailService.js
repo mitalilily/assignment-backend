@@ -16,10 +16,10 @@ const createTransporter = () => {
   const secure = process.env.SMTP_SECURE === "true" || port === 465;
 
   return nodemailer.createTransport({
-    service: process.env.SMTP_HOST === "smtp.gmail.com" ? "gmail" : undefined,
     host: process.env.SMTP_HOST,
     port,
     secure,
+    family: 4,
     auth: {
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASS,
@@ -27,6 +27,9 @@ const createTransporter = () => {
     connectionTimeout: 15000,
     greetingTimeout: 15000,
     socketTimeout: 20000,
+    tls: {
+      servername: process.env.SMTP_HOST,
+    },
   });
 };
 
