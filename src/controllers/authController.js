@@ -63,7 +63,10 @@ const sendOtp = async (req, res) => {
 
     await sendOtpEmail({ email: normalizedEmail, code, purpose });
 
-    return res.status(200).json({ message: "OTP sent to your email address" });
+    return res.status(200).json({
+      message: "OTP generated successfully",
+      otp: code,
+    });
   } catch (error) {
     return res.status(500).json({ message: error.message || "Failed to send OTP" });
   }
