@@ -5,7 +5,12 @@ const cookieParser = require("cookie-parser");
 const authRoutes = require("./routes/authRoutes");
 
 const app = express();
-const allowedOrigins = (process.env.CLIENT_URL || "http://localhost:5173")
+const defaultClientOrigins = [
+  "http://localhost:5173",
+  "http://127.0.0.1:4173",
+  "https://assignment-courier.netlify.app",
+];
+const allowedOrigins = (process.env.CLIENT_URL || defaultClientOrigins.join(","))
   .split(",")
   .map((origin) => origin.trim())
   .filter(Boolean);
